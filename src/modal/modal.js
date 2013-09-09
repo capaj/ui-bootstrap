@@ -246,10 +246,13 @@ angular.module('ui.bootstrap.modal', [])
               opened: modalOpenedDeferred.promise,
               close: function (result) {
                 $modalStack.close(modalInstance, result);
+                modalInstance.isOpen = false;
               },
               dismiss: function (reason) {
                 $modalStack.dismiss(modalInstance, reason);
-              }
+                modalInstance.isOpen = false;
+              },
+              isOpen: false
             };
 
             //merge and clean up options
@@ -293,6 +296,8 @@ angular.module('ui.bootstrap.modal', [])
                 keyboard: modalOptions.keyboard,
                 windowClass: modalOptions.windowClass
               });
+
+              modalInstance.isOpen = true;
 
             }, function resolveError(reason) {
               modalResultDeferred.reject(reason);
